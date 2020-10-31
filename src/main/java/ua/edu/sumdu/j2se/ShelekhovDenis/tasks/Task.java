@@ -7,7 +7,7 @@ public class Task {
     private int start;
     private int end;
     private int interval;
-    private int repeated;
+    private boolean repeated;
     private boolean active;
 
     public Task(String title, int time){
@@ -20,7 +20,7 @@ public class Task {
         this.start = start;
         this.end = end;
         this.interval = interval;
-        this.repeated = (end-start)/interval;
+        this.repeated = true;
     }
 
     String getTitle(){
@@ -43,7 +43,7 @@ public class Task {
     }
 
     int getTime(){
-        if(repeated == 0)
+        if(!repeated)
             return time;
         else
             return start+interval;
@@ -51,54 +51,60 @@ public class Task {
 
     void setTime(int time){
         this.time = time;
-        if(repeated != 0)
-            repeated = 0;
+        if(repeated)
+            repeated = false;
     }
 
     int getStartTime(){
-        if(repeated != 0)
+        if(repeated)
             return start;
         else
             return time;
     }
 
     int getEndTime(){
-        if(repeated != 0)
+        if(repeated)
             return end;
         else
             return time;
     }
 
     int getRepeatInterval(){
-        if(repeated !=0)
+        if(repeated)
             return interval;
         else
             return 0;
     }
 
     void setTime(int start, int end, int interval){
-        if(repeated == 0){
+        if(!repeated){
             this.start = start;
             this.end = end;
             this.interval = interval;
-            this.repeated = (end-start)/interval;
+            this.repeated = true;
         }
     }
 
     boolean isRepeated(){
-        if(repeated != 0)
+        if(repeated)
             return true;
         else
             return false;
     }
 
     int nextTimeAfter(int current){
-        if(repeated != 0)
-            for (int i = 1; i <= repeated; i++) {
-                if (current >= start + interval * (i - 1) && current < start + interval * i) {
-                    return start + interval * i;
+        if(active){
+            if(repeated) {
+                for (int i = 1; i <= (end - start) / interval; i++) {
+                    if (current >= start + interval * (i - 1) && current < start + interval * i) {
+                        return start + interval * i;
+                    }
                 }
             }
+            else
+                if(current < time)
+                    return time;
+        }
         return -1;
     }
 }
