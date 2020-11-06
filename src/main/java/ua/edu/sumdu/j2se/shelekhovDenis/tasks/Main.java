@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.ShelekhovDenis.tasks;
+package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.ShelekhovDenis.tasks;
+package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
 
 public class Task {
 
@@ -23,60 +23,60 @@ public class Task {
         this.repeated = true;
     }
 
-    String getTitle(){
+    public  String getTitle(){
         return title;
     }
 
-    void setTitle(String title){
+    public   void setTitle(String title){
         this.title = title;
     }
 
-    boolean isActive(){
+    public  boolean isActive(){
         if(active)
             return true;
         else
             return false;
     }
 
-    void setActive(boolean active){
+    public void setActive(boolean active){
         this.active = active;
     }
 
-    int getTime(){
+    public int getTime(){
         if(!repeated)
             return time;
         else
-            return start+interval;
+            return start;
     }
 
-    void setTime(int time){
+    public void setTime(int time){
         this.time = time;
         if(repeated)
             repeated = false;
     }
 
-    int getStartTime(){
+    public int getStartTime(){
         if(repeated)
             return start;
         else
             return time;
     }
 
-    int getEndTime(){
+    public int getEndTime(){
         if(repeated)
             return end;
         else
             return time;
     }
 
-    int getRepeatInterval(){
+    public int getRepeatInterval(){
         if(repeated)
             return interval;
         else
             return 0;
     }
 
-    void setTime(int start, int end, int interval){
+    public void setTime(int start, int end, int interval){
         if(!repeated){
             this.start = start;
             this.end = end;
@@ -85,19 +85,19 @@ public class Task {
         }
     }
 
-    boolean isRepeated(){
+    public boolean isRepeated(){
         if(repeated)
             return true;
         else
             return false;
     }
 
-    int nextTimeAfter(int current){
+    public int nextTimeAfter(int current){
         if(active){
             if(repeated) {
-                for (int i = 1; i <= (end - start) / interval; i++) {
-                    if (current >= start + interval * (i - 1) && current < start + interval * i) {
-                        return start + interval * i;
+                for (int i = start; i <= end; i += interval) {
+                    if (current < i) {
+                        return i;
                     }
                 }
             }
