@@ -5,15 +5,15 @@ public class ArrayTaskList {
     Task[] taskList = new Task[10];
 
     public void add (Task task) {
-        boolean overflow = false;
+        boolean overflow = true;
         for(int i = 0; i < taskList.length; i++) {
             if (taskList[i] == null) {
                 taskList[i] = task;
-                overflow = true;
+                overflow = false;
                 break;
             }
         }
-        if (!overflow) {
+        if (overflow) {
             Task[] taskListTemp = new Task[taskList.length + 5];
             for (int i = 0; i < taskList.length; i++) {
                 taskListTemp[i] = taskList[i];
