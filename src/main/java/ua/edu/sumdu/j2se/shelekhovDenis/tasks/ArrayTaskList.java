@@ -14,7 +14,7 @@ public class ArrayTaskList {
             }
         }
         if (overflow) {
-            Task[] taskListTemp = new Task[taskList.length + 5];
+            Task[] taskListTemp = new Task[taskList.length * 2];
             for (int i = 0; i < taskList.length; i++) {
                 taskListTemp[i] = taskList[i];
             }
@@ -53,7 +53,9 @@ public class ArrayTaskList {
     }
 
     public Task getTask(int index){
-            return taskList[index];
+        if(index < 0 || taskList[index] == null)
+            return null;
+        return taskList[index];
     }
 
     public ArrayTaskList incoming (int from, int to){
