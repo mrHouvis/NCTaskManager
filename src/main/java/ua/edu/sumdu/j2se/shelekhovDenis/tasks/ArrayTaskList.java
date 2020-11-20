@@ -2,20 +2,26 @@ package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
 
 public class ArrayTaskList {
 
-    Task[] taskList = {null};
+    Task[] taskList = new Task[10];
 
     public void add (Task task) {
-        if (taskList[taskList.length - 1] == null){
-            taskList[taskList.length - 1] = task;
+        boolean overflow = false;
+        for(int i = 0; i < taskList.length; i++) {
+            if (taskList[i] == null) {
+                taskList[i] = task;
+                overflow = true;
+                break;
+            }
         }
-        else{
-            Task[] taskListTemp = new Task[taskList.length + 1];
-            for(int i = 0; i < taskList.length; i++){
+        if (!overflow) {
+            Task[] taskListTemp = new Task[taskList.length + 5];
+            for (int i = 0; i < taskList.length; i++) {
                 taskListTemp[i] = taskList[i];
             }
-            taskListTemp[taskListTemp.length - 1] = task;
+            taskListTemp[taskList.length] = task;
             taskList = taskListTemp;
         }
+
     }
 
     public boolean remove (Task task) {
@@ -39,21 +45,24 @@ public class ArrayTaskList {
 
 
     public int size(){
-        if(taskList[0] == null){
-            return 0;
+        for(int i = 0; i < taskList.length; i++){
+            if(taskList[i] == null)
+                return i;
         }
         return taskList.length;
     }
 
     public Task getTask(int index){
-        return taskList[index];
+            return taskList[index];
     }
 
     public ArrayTaskList incoming (int from, int to){
         ArrayTaskList activeTaskList = new ArrayTaskList();
         for(int i = 0; i < taskList.length; i++) {
-            if (taskList[i].nextTimeAfter(from) <= to && taskList[i].nextTimeAfter(from) >= from) {
-                activeTaskList.add(taskList[i]);
+            if(taskList[i] != null) {
+                if (taskList[i].nextTimeAfter(from) <= to && taskList[i].nextTimeAfter(from) >= from) {
+                    activeTaskList.add(taskList[i]);
+                }
             }
         }
         return activeTaskList;
