@@ -10,16 +10,29 @@ public class Task {
     private boolean repeated;
     private boolean active;
 
-    public Task(String title, int time){
+    public Task(String title, int time) throws IllegalArgumentException{
         this.title = title;
-        this.time = time;
+        try{
+            this.time = time;
+        }
+        catch (IllegalArgumentException e){
+            System.out.println("The calculation parameter must not be negative");
+        }
     }
 
-    public Task(String title, int start, int end, int interval){
+    public Task(String title, int start, int end, int interval) throws Exception{
+        if(interval == 0){
+            throw new Exception("Interval cannot be zero");
+        }
         this.title = title;
-        this.start = start;
-        this.end = end;
-        this.interval = interval;
+        try {
+            this.start = start;
+            this.end = end;
+            this.interval = interval;
+        }
+        catch (IllegalArgumentException e){
+            System.out.println("The calculation parameter must not be negative");
+        }
         this.repeated = true;
     }
 
@@ -49,8 +62,13 @@ public class Task {
             return start;
     }
 
-    public void setTime(int time){
-        this.time = time;
+    public void setTime(int time) throws IllegalArgumentException{
+        try {
+            this.time = time;
+        }
+        catch (IllegalArgumentException e){
+            System.out.println("The calculation parameter must not be negative");
+        }
         if(repeated)
             repeated = false;
     }
@@ -76,11 +94,16 @@ public class Task {
             return 0;
     }
 
-    public void setTime(int start, int end, int interval){
+    public void setTime(int start, int end, int interval) throws IllegalArgumentException{
         if(!repeated){
-            this.start = start;
-            this.end = end;
-            this.interval = interval;
+            try {
+                this.start = start;
+                this.end = end;
+                this.interval = interval;
+            }
+            catch (IllegalArgumentException e){
+                System.out.println("The calculation parameter must not be negative");
+            }
             this.repeated = true;
         }
     }

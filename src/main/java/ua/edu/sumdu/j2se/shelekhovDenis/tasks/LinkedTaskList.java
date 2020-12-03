@@ -1,9 +1,6 @@
 package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
 
-import java.util.concurrent.ExecutionException;
-
-public class ArrayTaskList {
-
+public class LinkedTaskList {
     Task[] taskList = new Task[10];
 
     public void add (Task task) throws NullPointerException {
@@ -68,8 +65,8 @@ public class ArrayTaskList {
         }
     }
 
-    public ArrayTaskList incoming (int from, int to) throws Exception {
-        ArrayTaskList activeTaskList = new ArrayTaskList();
+    public LinkedTaskList incoming (int from, int to) throws Exception {
+        LinkedTaskList activeTaskList = new LinkedTaskList();
         for(int i = 0; i < taskList.length; i++) {
             if(taskList[i] != null) {
                 if (taskList[i].nextTimeAfter(from) <= to && taskList[i].nextTimeAfter(from) >= from) {
