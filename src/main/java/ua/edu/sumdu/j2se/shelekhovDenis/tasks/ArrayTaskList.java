@@ -1,36 +1,30 @@
 package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
 
-import java.util.concurrent.ExecutionException;
-
 public class ArrayTaskList {
-
     Task[] taskList = new Task[10];
 
-    public void add (Task task) throws NullPointerException {
+    public void add (Task task) {
         boolean overflow = true;
-        try {
-            for (int i = 0; i < taskList.length; i++) {
-                if (taskList[i] == null) {
-                    taskList[i] = task;
-                    overflow = false;
-                    break;
-                }
-            }
-            if (overflow) {
-                Task[] taskListTemp = new Task[taskList.length * 2];
-                for (int i = 0; i < taskList.length; i++) {
-                    taskListTemp[i] = taskList[i];
-                }
-                taskListTemp[taskList.length] = task;
-                taskList = taskListTemp;
+        if(task == null){ throw new NullPointerException("The task is null"); }
+        for (int i = 0; i < taskList.length; i++) {
+            if (taskList[i] == null) {
+                taskList[i] = task;
+                overflow = false;
+                break;
             }
         }
-        catch (NullPointerException e){
-            System.out.println("The task is empty");
+        if (overflow) {
+            Task[] taskListTemp = new Task[taskList.length * 2];
+            for (int i = 0; i < taskList.length; i++) {
+                taskListTemp[i] = taskList[i];
+            }
+            taskListTemp[taskList.length] = task;
+            taskList = taskListTemp;
         }
     }
 
     public boolean remove (Task task) {
+        if(task == null){ throw new NullPointerException("The task is null"); }
         for (int i = 0; i < taskList.length; i++){
             if(taskList[i] == task){
                 Task[] taskListTemp = new Task[taskList.length - 1];
@@ -58,14 +52,9 @@ public class ArrayTaskList {
         return taskList.length;
     }
 
-    public Task getTask(int index) throws IndexOutOfBoundsException{
-        try{
-            return taskList[index];
-        }
-        catch (IndexOutOfBoundsException e){
-            System.out.println("The index is out of range for the list");
-            return null;
-        }
+    public Task getTask(int index){
+        if( index < 0 || index >= taskList.length){ throw new IndexOutOfBoundsException("The index is out of range for the list"); }
+        return taskList[index];
     }
 
     public ArrayTaskList incoming (int from, int to) throws Exception {

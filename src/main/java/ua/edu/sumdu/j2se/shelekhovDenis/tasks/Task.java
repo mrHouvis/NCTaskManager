@@ -10,29 +10,20 @@ public class Task {
     private boolean repeated;
     private boolean active;
 
-    public Task(String title, int time) throws IllegalArgumentException{
+    public Task(String title, int time){
+        if(title == null){ throw new NullPointerException("The title is null"); }
+        if(time < 0){ throw new IllegalArgumentException("The calculation parameter must not be negative"); }
         this.title = title;
-        try{
-            this.time = time;
-        }
-        catch (IllegalArgumentException e){
-            System.out.println("The calculation parameter must not be negative");
-        }
+        this.time = time;
     }
 
-    public Task(String title, int start, int end, int interval) throws Exception{
-        if(interval == 0){
-            throw new Exception("Interval cannot be zero");
-        }
+    public Task(String title, int start, int end, int interval){
+        if(title == null){ throw new NullPointerException("The title is null"); }
+        if(start < 0 || end < start || interval < 0){ throw new IllegalArgumentException("The calculation parameter must not be negative"); }
         this.title = title;
-        try {
-            this.start = start;
-            this.end = end;
-            this.interval = interval;
-        }
-        catch (IllegalArgumentException e){
-            System.out.println("The calculation parameter must not be negative");
-        }
+        this.start = start;
+        this.end = end;
+        this.interval = interval;
         this.repeated = true;
     }
 
@@ -41,6 +32,7 @@ public class Task {
     }
 
     public   void setTitle(String title){
+        if(title == null){ throw new NullPointerException("The title is null"); }
         this.title = title;
     }
 
@@ -62,13 +54,9 @@ public class Task {
             return start;
     }
 
-    public void setTime(int time) throws IllegalArgumentException{
-        try {
-            this.time = time;
-        }
-        catch (IllegalArgumentException e){
-            System.out.println("The calculation parameter must not be negative");
-        }
+    public void setTime(int time){
+        if(time < 0){ throw new IllegalArgumentException("The calculation parameter must not be negative"); }
+        this.time = time;
         if(repeated)
             repeated = false;
     }
@@ -94,16 +82,12 @@ public class Task {
             return 0;
     }
 
-    public void setTime(int start, int end, int interval) throws IllegalArgumentException{
+    public void setTime(int start, int end, int interval){
         if(!repeated){
-            try {
-                this.start = start;
-                this.end = end;
-                this.interval = interval;
-            }
-            catch (IllegalArgumentException e){
-                System.out.println("The calculation parameter must not be negative");
-            }
+            if(start < 0 || end < start || interval < 0){ throw new IllegalArgumentException("The calculation parameter must not be negative"); }
+            this.start = start;
+            this.end = end;
+            this.interval = interval;
             this.repeated = true;
         }
     }
@@ -116,6 +100,7 @@ public class Task {
     }
 
     public int nextTimeAfter(int current){
+        if (current < 0) {throw new IllegalArgumentException("The current it should be 0 or more");}
         if(active){
             if(repeated) {
                 for (int i = start; i <= end; i += interval) {
