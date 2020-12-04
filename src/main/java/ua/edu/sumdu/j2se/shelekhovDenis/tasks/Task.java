@@ -11,11 +11,15 @@ public class Task {
     private boolean active;
 
     public Task(String title, int time){
+        if(title == null){ throw new NullPointerException("The title is null"); }
+        if(time < 0){ throw new IllegalArgumentException("The calculation parameter must not be negative"); }
         this.title = title;
         this.time = time;
     }
 
     public Task(String title, int start, int end, int interval){
+        if(title == null){ throw new NullPointerException("The title is null"); }
+        if(start < 0 || end < start || interval < 0){ throw new IllegalArgumentException("The calculation parameter must not be negative"); }
         this.title = title;
         this.start = start;
         this.end = end;
@@ -28,6 +32,7 @@ public class Task {
     }
 
     public   void setTitle(String title){
+        if(title == null){ throw new NullPointerException("The title is null"); }
         this.title = title;
     }
 
@@ -50,6 +55,7 @@ public class Task {
     }
 
     public void setTime(int time){
+        if(time < 0){ throw new IllegalArgumentException("The calculation parameter must not be negative"); }
         this.time = time;
         if(repeated)
             repeated = false;
@@ -78,6 +84,7 @@ public class Task {
 
     public void setTime(int start, int end, int interval){
         if(!repeated){
+            if(start < 0 || end < start || interval < 0){ throw new IllegalArgumentException("The calculation parameter must not be negative"); }
             this.start = start;
             this.end = end;
             this.interval = interval;
@@ -93,6 +100,7 @@ public class Task {
     }
 
     public int nextTimeAfter(int current){
+        if (current < 0) {throw new IllegalArgumentException("The current it should be 0 or more");}
         if(active){
             if(repeated) {
                 for (int i = start; i <= end; i += interval) {

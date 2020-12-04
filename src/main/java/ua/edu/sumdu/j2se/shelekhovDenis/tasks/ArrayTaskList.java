@@ -1,12 +1,12 @@
 package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
 
 public class ArrayTaskList {
-
     Task[] taskList = new Task[10];
 
     public void add (Task task) {
         boolean overflow = true;
-        for(int i = 0; i < taskList.length; i++) {
+        if(task == null){ throw new NullPointerException("The task is null"); }
+        for (int i = 0; i < taskList.length; i++) {
             if (taskList[i] == null) {
                 taskList[i] = task;
                 overflow = false;
@@ -21,10 +21,10 @@ public class ArrayTaskList {
             taskListTemp[taskList.length] = task;
             taskList = taskListTemp;
         }
-
     }
 
     public boolean remove (Task task) {
+        if(task == null){ throw new NullPointerException("The task is null"); }
         for (int i = 0; i < taskList.length; i++){
             if(taskList[i] == task){
                 Task[] taskListTemp = new Task[taskList.length - 1];
@@ -53,12 +53,11 @@ public class ArrayTaskList {
     }
 
     public Task getTask(int index){
-        if(index < 0 || taskList[index] == null)
-            return null;
+        if( index < 0 || index >= taskList.length){ throw new IndexOutOfBoundsException("The index is out of range for the list"); }
         return taskList[index];
     }
 
-    public ArrayTaskList incoming (int from, int to){
+    public ArrayTaskList incoming (int from, int to) throws Exception {
         ArrayTaskList activeTaskList = new ArrayTaskList();
         for(int i = 0; i < taskList.length; i++) {
             if(taskList[i] != null) {
