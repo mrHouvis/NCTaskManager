@@ -1,8 +1,13 @@
 package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
 
-public class ArrayTaskList {
+public class ArrayTaskList extends AbstractTaskList {
     Task[] taskList = new Task[10];
 
+    public ArrayTaskList(){
+        this.type = ListTypes.types.ARRAY;
+    }
+
+    @Override
     public void add (Task task) {
         boolean overflow = true;
         if(task == null){ throw new NullPointerException("The task is null"); }
@@ -23,6 +28,7 @@ public class ArrayTaskList {
         }
     }
 
+    @Override
     public boolean remove (Task task) {
         if(task == null){ throw new NullPointerException("The task is null"); }
         for (int i = 0; i < taskList.length; i++){
@@ -43,7 +49,7 @@ public class ArrayTaskList {
         return false;
     }
 
-
+    @Override
     public int size(){
         for(int i = 0; i < taskList.length; i++){
             if(taskList[i] == null)
@@ -52,20 +58,10 @@ public class ArrayTaskList {
         return taskList.length;
     }
 
+    @Override
     public Task getTask(int index){
         if( index < 0 || index >= taskList.length){ throw new IndexOutOfBoundsException("The index is out of range for the list"); }
         return taskList[index];
     }
 
-    public ArrayTaskList incoming (int from, int to) throws Exception {
-        ArrayTaskList activeTaskList = new ArrayTaskList();
-        for(int i = 0; i < taskList.length; i++) {
-            if(taskList[i] != null) {
-                if (taskList[i].nextTimeAfter(from) <= to && taskList[i].nextTimeAfter(from) >= from) {
-                    activeTaskList.add(taskList[i]);
-                }
-            }
-        }
-        return activeTaskList;
-    }
 }

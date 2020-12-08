@@ -1,6 +1,6 @@
 package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
 
-public class LinkedTaskList {
+public class LinkedTaskList extends AbstractTaskList{
     private Node first;
     private Node last;
     private int size;
@@ -9,8 +9,10 @@ public class LinkedTaskList {
         first = null;
         last = null;
         size = 0;
+        this.type = ListTypes.types.LINKED;
     }
 
+    @Override
     public void add (Task task) {
         if (task == null) { throw new NullPointerException("The task is null."); }
         if (size != 0) {
@@ -25,6 +27,7 @@ public class LinkedTaskList {
         size++;
     }
 
+    @Override
     public boolean remove (Task task) {
         if (size == 0) { throw new IllegalStateException("The list is empty"); }
         if (task == null) { throw new NullPointerException("The task is empty"); }
@@ -51,6 +54,7 @@ public class LinkedTaskList {
         return result;
     }
 
+    @Override
     public int size(){
         return size;
     }
@@ -65,6 +69,7 @@ public class LinkedTaskList {
         }
     }
 
+    @Override
     public Task getTask(int index){
         if( index < 0 || index > size){ throw new IndexOutOfBoundsException("The index is out of range for the list"); }
                 LinkedTaskList.Node x = first;
@@ -73,15 +78,4 @@ public class LinkedTaskList {
                 return x.data;
     }
 
-    public LinkedTaskList incoming (int from, int to) throws Exception {
-        LinkedTaskList activeTaskList = new LinkedTaskList();
-        LinkedTaskList.Node x = first;
-        for(int i = 0; i < size; i++) {
-            if (x.data.nextTimeAfter(from) <= to && x.data.nextTimeAfter(from) >= from) {
-                activeTaskList.add(x.data);
-            }
-            x = x.next;
-        }
-        return activeTaskList;
-    }
 }
