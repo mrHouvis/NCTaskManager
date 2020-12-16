@@ -1,6 +1,8 @@
 package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
 
-public class ArrayTaskList extends AbstractTaskList {
+import java.util.Iterator;
+
+public class ArrayTaskList extends AbstractTaskList{
     Task[] taskList = new Task[10];
 
     public ArrayTaskList(){
@@ -62,6 +64,37 @@ public class ArrayTaskList extends AbstractTaskList {
     public Task getTask(int index){
         if( index < 0 || index >= taskList.length){ throw new IndexOutOfBoundsException("The index is out of range for the list"); }
         return taskList[index];
+    }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return new Iterator<Task>() {
+
+            private int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                if(index < size()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            @Override
+            public Task next() {
+                return ArrayTaskList.this.getTask(index++);
+            }
+
+            @Override
+            public void remove() {
+                if(index == 0){
+                    throw new IllegalStateException("Method next() has not yet been called");
+                } else {
+                    ArrayTaskList.this.remove(ArrayTaskList.this.getTask(--index));
+                }
+            }
+        };
     }
 
 }

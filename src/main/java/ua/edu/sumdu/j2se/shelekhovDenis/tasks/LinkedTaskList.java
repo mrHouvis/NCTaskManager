@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
 
+import java.util.Iterator;
+
 public class LinkedTaskList extends AbstractTaskList{
     private Node first;
     private Node last;
@@ -57,6 +59,41 @@ public class LinkedTaskList extends AbstractTaskList{
     @Override
     public int size(){
         return size;
+    }
+
+    @Override
+    public Iterator<Task> iterator() {
+        return new Iterator<Task>() {
+
+            private Node nextTask = first;
+            private Node prevTask = null;
+
+            @Override
+            public boolean hasNext() {
+                if(nextTask == null){
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public Task next() {
+                prevTask = nextTask;
+                nextTask = nextTask.next;
+                return prevTask.data;
+            }
+
+            @Override
+            public void remove() {
+                if(prevTask == null){
+                    throw new IllegalStateException("Method next() has not yet been called");
+                } else {
+                    LinkedTaskList.this.remove(prevTask.data);
+                    prevTask = null;
+                }
+            }
+        };
     }
 
     private class Node {
