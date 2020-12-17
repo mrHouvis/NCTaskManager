@@ -1,5 +1,8 @@
 package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
 
+import java.util.stream.Stream;
+import java.util.Arrays;
+
 public abstract class AbstractTaskList implements Iterable<Task>, Cloneable{
 
     protected ListTypes.types type;
@@ -12,15 +15,21 @@ public abstract class AbstractTaskList implements Iterable<Task>, Cloneable{
 
     public abstract Task getTask(int index);
 
-    public AbstractTaskList incoming (int from, int to) throws Exception {
-        AbstractTaskList activeTaskList = TaskListFactory.createTaskList(this.type);
+    public Stream<Task> getStream() {
+        return Arrays.stream(this.toArray());
+    }
+
+    public Task[] toArray() {
+        Task[] tasks = new Task[this.size()];
         for (int i = 0; i < this.size(); i++) {
-            if (this.getTask(i) != null) {
-                if (this.getTask(i).nextTimeAfter(from) <= to && this.getTask(i).nextTimeAfter(from) >= from) {
-                    activeTaskList.add(this.getTask(i));
-                }
-            }
+            tasks[i] = this.getTask(i);
         }
+        return tasks;
+    }
+
+    public final AbstractTaskList incoming (int from, int to) throws Exception {
+        AbstractTaskList activeTaskList = TaskListFactory.createTaskList(this.type);
+        this.getStream().filter(task -> task != null && task.nextTimeAfter(from) <= to && task.nextTimeAfter(from) >= from).forEach(activeTaskList :: add);
         return activeTaskList;
     }
 
