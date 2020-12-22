@@ -1,9 +1,14 @@
 package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
 
-import java.time.LocalDate;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+//import java.time.LocalDate;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
-public class Task implements Cloneable{
+public class Task implements Cloneable, Serializable {
 
     private String title;
     private LocalDateTime time;
@@ -173,9 +178,17 @@ public class Task implements Cloneable{
     @Override
     public String toString() {
         if(isRepeated()){
-            return "Title: " + getTitle() + " time: " + getTime() + " isActive: " + isActive() + "/n";
+            return "Title: " + getTitle() +
+                    " time: " + getTime() +
+                    " isActive: " + isActive() +
+                    "/n";
         } else {
-            return "Title: " + getTitle() + " start time: " + getStartTime() + " end time: " + getEndTime() + " interval: " + getRepeatInterval() + " isActive: " + isActive() + "/n";
+            return "Title: " + getTitle() +
+                    " start time: " + getStartTime() +
+                    " end time: " + getEndTime() +
+                    " interval: " + getRepeatInterval() +
+                    " isActive: " + isActive() +
+                    "/n";
         }
     }
 
@@ -194,4 +207,41 @@ public class Task implements Cloneable{
         }
         return null;
     }
+
+    public void writeObject(ObjectOutputStream out) {
+        try {
+            out.writeInt(getTitle().length());
+            out.writeUTF(getTitle());
+            out.writeBoolean(isActive());
+            out.writeInt(getRepeatInterval());
+            if (isRepeated()) {
+                out.writeLong(getStartTime().toEpochSecond(ZoneOffset.UTC));
+                out.writeLong(getEndTime().toEpochSecond(ZoneOffset.UTC));
+            } else {
+                out.writeLong(getTime().toEpochSecond(ZoneOffset.UTC));
+            }
+        } catch(IOException e){
+            System.out.println("Tasks were not write");
+        }
+    }
+
+    public Task readObject(ObjectInputStream in) {
+        Task task = new Task();
+        try {
+            int length = in.readInt();
+            task.title = in.readUTF();
+            task.active = in.readBoolean();
+            task.interval = in.readInt();
+            if (interval == 0) {
+                task.time = LocalDateTime.ofEpochSecond(in.readLong(), 0, ZoneOffset.UTC);
+            } else {
+                task.start = LocalDateTime.ofEpochSecond(in.readLong(), 0, ZoneOffset.UTC);
+                task.end = LocalDateTime.ofEpochSecond(in.readLong(), 0, ZoneOffset.UTC);
+            }
+        } catch(IOException e){
+            System.out.println("Tasks were not read");
+        }
+        return task;
+    }
+
 }
