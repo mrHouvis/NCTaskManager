@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
+package ua.edu.sumdu.j2se.shelekhovdenis.tasks.model;
 
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
@@ -28,9 +28,10 @@ public abstract class AbstractTaskList implements Iterable<Task>, Cloneable{
         return tasks;
     }
 
-    public final AbstractTaskList incoming (LocalDateTime from, LocalDateTime to) throws Exception {
+    public final AbstractTaskList incoming (LocalDateTime from, LocalDateTime to) throws NullPointerException {
         AbstractTaskList activeTaskList = TaskListFactory.createTaskList(this.type);
-        this.getStream().filter(task -> task != null && task.nextTimeAfter(from).isBefore(to) && task.nextTimeAfter(from).isBefore(from)).forEach(activeTaskList :: add);
+        this.getStream().filter(task -> (task != null && task.isActive() && task.nextTimeAfter(from) != null &&
+                task.nextTimeAfter(from).isBefore(to) && task.nextTimeAfter(from).isAfter(from))).forEach(activeTaskList::add);
         return activeTaskList;
     }
 

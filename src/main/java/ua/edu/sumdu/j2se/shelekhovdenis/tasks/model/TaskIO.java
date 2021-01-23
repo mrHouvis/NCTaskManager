@@ -1,11 +1,14 @@
-package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
+package ua.edu.sumdu.j2se.shelekhovdenis.tasks.model;
 
 import com.google.gson.Gson;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.Objects;
 
 public class TaskIO {
+
+    private static Logger logger = Logger.getLogger(TaskIO.class);
 
     public static void write(AbstractTaskList tasks, OutputStream out){
         try(ObjectOutputStream writer = new ObjectOutputStream(out)){
@@ -14,6 +17,7 @@ public class TaskIO {
                 writer.writeObject(task);
             }
         } catch (IOException e){
+            logger.error("Tasks were not write", e);
             System.out.println("Tasks were not write");
         }
     }
@@ -25,8 +29,10 @@ public class TaskIO {
                 tasks.add((Task)reader.readObject());
             }
         } catch (ClassNotFoundException e){
+            logger.error("Class is not found", e);
             System.out.println("Class is not found");
         } catch (IOException e){
+            logger.error("Tasks were not read", e);
             System.out.println("Tasks were not read");
         }
     }
@@ -35,8 +41,10 @@ public class TaskIO {
         try(FileOutputStream writer = new FileOutputStream(file)){
             write(tasks, writer);
         } catch (FileNotFoundException e) {
+            logger.error("File is not found", e);
             System.out.println("File is not found");
         } catch (IOException e) {
+            logger.error("Tasks were not write(Bin)", e);
             System.out.println("Tasks were not write(Bin)");
         }
     }
@@ -45,8 +53,10 @@ public class TaskIO {
         try(FileInputStream reader = new FileInputStream(file)){
             read(tasks, reader);
         } catch (FileNotFoundException e) {
+            logger.error("File is not found", e);
             System.out.println("File is not found");
         } catch (IOException e) {
+            logger.error("Tasks were not read(Bin)", e);
             System.out.println("Tasks were not read(Bin)");
         }
     }
@@ -57,6 +67,7 @@ public class TaskIO {
             String tasksJson = gson.toJson(tasks);
             writer.write(tasksJson);
         } catch (IOException e) {
+            logger.error("Tasks were not write(gson)", e);
             System.out.println("Tasks were not write(gson)");
         }
     }
@@ -70,6 +81,7 @@ public class TaskIO {
                 tasks.add(task);
             }
         } catch (IOException e) {
+            logger.error("Tasks were not read(gson)", e);
             System.out.println("Tasks were not read(gson)");
         }
     }
@@ -78,6 +90,7 @@ public class TaskIO {
         try(FileWriter writer = new FileWriter(file)){
             write(tasks, writer);
         } catch (IOException e) {
+            logger.error("Tasks were not write(Text)", e);
             System.out.println("Tasks were not write(Text)");
         }
     }
@@ -86,6 +99,7 @@ public class TaskIO {
         try(FileReader reader = new FileReader(file)){
             read(tasks, reader);
         } catch (IOException e) {
+            logger.error("Tasks were not read(Text)", e);
             System.out.println("Tasks were not read(Text)");
         }
     }

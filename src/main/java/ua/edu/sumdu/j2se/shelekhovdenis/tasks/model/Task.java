@@ -1,9 +1,10 @@
-package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
+package ua.edu.sumdu.j2se.shelekhovdenis.tasks.model;
+
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-//import java.time.LocalDate;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -16,7 +17,7 @@ public class Task implements Cloneable, Serializable {
     private LocalDateTime end;
     private int interval;
     private boolean repeated;
-    private boolean active;
+    private boolean active = true;
 
     public Task() {
         super();
@@ -177,23 +178,20 @@ public class Task implements Cloneable, Serializable {
 
     @Override
     public String toString() {
-        if(isRepeated()){
+        if(!isRepeated()){
             return "Title: " + getTitle() +
                     " time: " + getTime() +
-                    " isActive: " + isActive() +
-                    "/n";
+                    " isActive: " + isActive() + '\n';
         } else {
             return "Title: " + getTitle() +
                     " start time: " + getStartTime() +
                     " end time: " + getEndTime() +
                     " interval: " + getRepeatInterval() +
-                    " isActive: " + isActive() +
-                    "/n";
+                    " isActive: " + isActive() + '\n';
         }
     }
 
     public LocalDateTime nextTimeAfter(LocalDateTime current) {
-        if (active) {
             if (repeated) {
                 LocalDateTime i = start;
                 while(i.isBefore(end) || i.isEqual(end)){
@@ -202,9 +200,8 @@ public class Task implements Cloneable, Serializable {
                     }
                     i = i.plusSeconds(interval);
                 }
-            } else if (current.isBefore(time))
-                return time;
-        }
+            } else if (current.isBefore(time)){
+                return time;}
         return null;
     }
 

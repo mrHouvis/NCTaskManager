@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
+package ua.edu.sumdu.j2se.shelekhovdenis.tasks.model;
 
 import java.time.LocalDateTime;
 import java.util.*;
