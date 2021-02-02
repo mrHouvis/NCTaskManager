@@ -1,6 +1,5 @@
 package ua.edu.sumdu.j2se.shelekhovdenis.tasks.view;
 
-import ua.edu.sumdu.j2se.shelekhovdenis.tasks.controller.CommonController;
 import ua.edu.sumdu.j2se.shelekhovdenis.tasks.model.AbstractTaskList;
 import ua.edu.sumdu.j2se.shelekhovdenis.tasks.model.TaskIO;
 
@@ -10,55 +9,47 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
-
-public class ModifyTimeView implements View{
-
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+/**
+ * allows you to change the number of repetitions and the task execution time
+ */
+public class ModifyTimeView extends Constants implements View{
 
     @Override
     public int print(AbstractTaskList taskList) {
-        int index = 0;
-        LocalDate localDate;
-        LocalTime localTime;
-        LocalDateTime time;
-        LocalDateTime start;
-        LocalDateTime end;
-        int interval;
-        boolean repeated = false;
-        CommonController showAllTaskController = new CommonController(new ShowAllTaskView(), 4);
 
-
+        index = 0;
+        check = false;
         showAllTaskController.process(taskList);
+
         for( ; ; ) {
             String checked;
-            boolean check = false;
-            System.out.println("Select the task to be change time (by index)");
+            System.out.println(selectMessage);
             try {
                 index = Integer.parseInt(reader.readLine());
             } catch (NumberFormatException e){
-              System.out.println("Incorrect entry, try again!");
+              System.out.println(incorrectEntryMessage);
               continue;
             } catch (IOException e) {
-                logger.error("An error occurred while typing(ModifyTimeView 1)", e);
+                logger.error(textErrorMessage, e);
             }
             for (int i = 1; i <= taskList.size(); i++) {
                 if (index == i)
                     check = true;
             }
             if (!check) {
-                System.out.println("Incorrect entry, try again!");
+                System.out.println(incorrectEntryMessage);
                 continue;
             }
-            System.out.println("The task must be repeated?(true/false)");
+            System.out.println(repeatedMessage);
             try {
                 checked = reader.readLine();
-                if(!checked.equals("true") && !checked.equals("false")) {
-                    System.out.println("Incorrect entry, try again!");
+                if(!checktrue.equalsIgnoreCase(checked) && !checkfalse.equalsIgnoreCase(checked)) {
+                    System.out.println(incorrectEntryMessage);
                     continue;
                 }
                 repeated = Boolean.parseBoolean(checked);
             } catch (IOException e) {
-                logger.error("An error occurred while typing(ModifyTimeView 2)", e);
+                logger.error(textErrorMessage, e);
             }
             if (!repeated) {
                 try {
@@ -72,9 +63,9 @@ public class ModifyTimeView implements View{
                     System.out.println("Time changed");
                     return 5;
                 } catch (DateTimeParseException e){
-                    System.out.println("Incorrect entry, try again!");
+                    System.out.println(incorrectEntryMessage);
                 } catch (IOException e) {
-                    logger.error("An error occurred while typing(ModifyTimeView 3)", e);
+                    logger.error(textErrorMessage, e);
                 }
             } else {
                 try {
@@ -95,9 +86,9 @@ public class ModifyTimeView implements View{
                     System.out.println("Time changed");
                     return 5;
                 } catch (DateTimeParseException e){
-                    System.out.println("Incorrect entry, try again!");
+                    System.out.println(incorrectEntryMessage);
                 } catch (IOException e) {
-                    logger.error("An error occurred while typing(ModifyTimeView 4)", e);
+                    logger.error(textErrorMessage, e);
                 }
             }
         }

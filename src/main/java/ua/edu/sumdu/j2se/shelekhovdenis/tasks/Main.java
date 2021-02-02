@@ -8,6 +8,9 @@ import ua.edu.sumdu.j2se.shelekhovdenis.tasks.view.MainView;
 
 import java.io.File;
 
+/**
+ * main class of the program
+ */
 public class Main {
     public static void main (String [] args) {
         MainView mainView = new MainView();

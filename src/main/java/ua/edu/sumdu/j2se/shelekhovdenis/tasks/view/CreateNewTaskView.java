@@ -10,38 +10,41 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
-public class CreateNewTaskView implements View{
+/**
+ * creates a task and adds it to the list
+ */
+public class CreateNewTaskView extends Constants implements View{
 
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
+    /**
+     * adds the created task to the list
+     * @param taskList - abstract task list class
+     * @return "6" - launching the main view
+     */
     @Override
     public int print(AbstractTaskList taskList) {
         try {
             taskList.add(createNewTask());
             TaskIO.writeText(taskList, new File("TaskList.json"));
         } catch (IOException e){
-            e.printStackTrace();
+            logger.error(textErrorMessage, e);
         }
         return 6;
     }
 
+    /**
+     * creates a new task for the selected parameters
+     * @return created task
+     * @throws IOException
+     */
     private Task createNewTask() throws IOException{
-        boolean repeated;
-        String title;
-        LocalDate localDate;
-        LocalTime localTime;
-        LocalDateTime time;
-        LocalDateTime start;
-        LocalDateTime end;
-        int interval;
         Task task;
 
         for( ; ; ) {
             String checked;
-            System.out.println("Its a repeated task?(true/false)");
+            System.out.println(repeatedMessage);
             checked = reader.readLine();
-            if(!checked.equals("true") && !checked.equals("false")) {
-                System.out.println("Incorrect entry, try again!");
+            if(!checktrue.equalsIgnoreCase(checked) && !checkfalse.equalsIgnoreCase(checked)) {
+                System.out.println(incorrectEntryMessage);
                 continue;
             }
             repeated = Boolean.parseBoolean(checked);
@@ -58,7 +61,7 @@ public class CreateNewTaskView implements View{
                     System.out.println(task.toString());
                     return task;
                 } catch (DateTimeParseException e) {
-                    System.out.println("Incorrect entry, try again!");
+                    System.out.println(incorrectEntryMessage);
                 }
             } else {
                 System.out.println("Write title");
@@ -80,7 +83,7 @@ public class CreateNewTaskView implements View{
                     System.out.println(task.toString());
                     return task;
                 } catch (DateTimeParseException e) {
-                    System.out.println("Incorrect entry, try again!");
+                    System.out.println(incorrectEntryMessage);
                 }
             }
         }

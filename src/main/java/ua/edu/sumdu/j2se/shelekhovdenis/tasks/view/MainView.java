@@ -2,44 +2,42 @@ package ua.edu.sumdu.j2se.shelekhovdenis.tasks.view;
 
 import ua.edu.sumdu.j2se.shelekhovdenis.tasks.model.AbstractTaskList;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
-public class MainView implements View {
-
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+/**
+ * outputs options to the console, reads the user's command
+ */
+public class MainView extends Constants implements View {
 
     @Override
     public int print(AbstractTaskList taskList) {
-        int number = 0;
 
-        for( ; ; ) {
-            boolean check = false;
-            System.out.println("Choose an action number from the options below.");
+        index = 0;
+        check = false;
+
+        while(!check) {
+            System.out.println(chooseActionMessage);
             System.out.println("1.- Create new task;");
             System.out.println("2.- Modify task;");
             System.out.println("3.- Delete task;");
-            System.out.println("4.- Search actions");
-            System.out.println("5.- Exit");
+            System.out.println("4.- Search actions;");
+            System.out.println("5.- Exit.");
             try {
-                number = Integer.parseInt(reader.readLine());
+                index = Integer.parseInt(reader.readLine());
             } catch (NumberFormatException e){
-                System.out.println("Incorrect entry, try again!");
+                System.out.println(incorrectEntryMessage);
                 continue;
             } catch (IOException e) {
-                logger.error("An error occurred while typing", e);
+                logger.error(textErrorMessage, e);
             }
             for (int i = 1; i < 6; i++) {
-                if (number == i)
+                if (index == i)
                     check = true;
             }
             if (!check) {
-                System.out.println("Incorrect entry, try again!");
-            } else {
-                break;
+                System.out.println(incorrectEntryMessage);
             }
         }
-        return number;
+        return index;
     }
 }

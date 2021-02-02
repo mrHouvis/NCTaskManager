@@ -1,44 +1,45 @@
 package ua.edu.sumdu.j2se.shelekhovdenis.tasks.view;
 
-import ua.edu.sumdu.j2se.shelekhovdenis.tasks.controller.CommonController;
 import ua.edu.sumdu.j2se.shelekhovdenis.tasks.model.AbstractTaskList;
 import ua.edu.sumdu.j2se.shelekhovdenis.tasks.model.TaskIO;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
+/**
+ * outputs using the ShowAllTaskView class
+ * all tasks, that changes the activity state of the task selected by the user
+ */
+public class ActivateTaskView extends Constants implements View{
 
-public class ActivateTaskView implements View{
-
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
+    /**
+     * changes the activity state of the task
+     * @param taskList - abstract task list class
+     * @return "5" - launching the view with modifications
+     */
     @Override
     public int print(AbstractTaskList taskList) {
-        int index = 0;
-        CommonController showAllTaskController = new CommonController(new ShowAllTaskView(), 4);
 
+        index = 0;
+        check = false;
         showAllTaskController.process(taskList);
-        for( ; ; ) {
-            boolean check = false;
-            System.out.println("Select the task to be deleted (by index)");
+
+        while(!check){
+            System.out.println(selectMessage);
             try {
                 index = Integer.parseInt(reader.readLine());
             } catch (NumberFormatException e){
-                System.out.println("Incorrect entry, try again!");
+                System.out.println(incorrectEntryMessage);
                 continue;
             } catch (IOException e) {
-                logger.error("An error occurred while typing(ActivateTaskView)", e);
+                logger.error(textErrorMessage, e);
             }
             for (int i = 1; i <= taskList.size(); i++) {
                 if (index == i)
                     check = true;
             }
             if (!check) {
-                System.out.println("Incorrect entry, try again!");
-            } else {
-                break;
+                System.out.println(incorrectEntryMessage);
             }
         }
         taskList.getTask(index-1).setActive(!taskList.getTask(index-1).isActive());

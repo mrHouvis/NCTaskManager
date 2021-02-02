@@ -6,10 +6,18 @@ import org.apache.log4j.Logger;
 import java.io.*;
 import java.util.Objects;
 
+/**
+ * class for input/output of task list to/from file
+ */
 public class TaskIO {
 
     private static Logger logger = Logger.getLogger(TaskIO.class);
 
+    /**
+     * creates a stream for output
+     * @param tasks - task list
+     * @param out - output stream
+     */
     public static void write(AbstractTaskList tasks, OutputStream out){
         try(ObjectOutputStream writer = new ObjectOutputStream(out)){
             writer.writeInt(tasks.size());
@@ -22,6 +30,11 @@ public class TaskIO {
         }
     }
 
+    /**
+     * creates a stream for input
+     * @param tasks - task list
+     * @param in - input stream
+     */
     public static void read(AbstractTaskList tasks, InputStream in){
         try(ObjectInputStream reader = new ObjectInputStream(in)){
             int size = reader.readInt();
@@ -37,6 +50,11 @@ public class TaskIO {
         }
     }
 
+    /**
+     * outputs stream to file
+     * @param tasks - task list
+     * @param file - file name and path
+     */
     public static void writeBinary(AbstractTaskList tasks, File file){
         try(FileOutputStream writer = new FileOutputStream(file)){
             write(tasks, writer);
@@ -49,6 +67,11 @@ public class TaskIO {
         }
     }
 
+    /**
+     * input stream into file
+     * @param tasks - task list
+     * @param file - file name and path
+     */
     public static void readBinary(AbstractTaskList tasks, File file){
         try(FileInputStream reader = new FileInputStream(file)){
             read(tasks, reader);
@@ -61,6 +84,11 @@ public class TaskIO {
         }
     }
 
+    /**
+     * creates a stream for output(using json)
+     * @param tasks - task list
+     * @param out - writing stream
+     */
     public static void write(AbstractTaskList tasks, Writer out){
         try(BufferedWriter writer = new BufferedWriter(out)){
             Gson gson = new Gson();
@@ -72,6 +100,11 @@ public class TaskIO {
         }
     }
 
+    /**
+     * creates a stream for input(using json)
+     * @param tasks - task list
+     * @param in - reading stream
+     */
     public static void read(AbstractTaskList tasks, Reader in){
         try(BufferedReader reader = new BufferedReader(in)){
             Gson gson = new Gson();
@@ -86,6 +119,11 @@ public class TaskIO {
         }
     }
 
+    /**
+     * outputs stream to file(using json)
+     * @param tasks - task list
+     * @param file - file name and path
+     */
     public static void writeText(AbstractTaskList tasks, File file){
         try(FileWriter writer = new FileWriter(file)){
             write(tasks, writer);
@@ -95,6 +133,11 @@ public class TaskIO {
         }
     }
 
+    /**
+     * input stream into file(using json)
+     * @param tasks - task list
+     * @param file - file name and path
+     */
     public static void readText(AbstractTaskList tasks, File file){
         try(FileReader reader = new FileReader(file)){
             read(tasks, reader);

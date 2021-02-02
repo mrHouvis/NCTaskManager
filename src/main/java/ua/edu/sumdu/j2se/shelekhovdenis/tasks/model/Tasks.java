@@ -3,8 +3,18 @@ package ua.edu.sumdu.j2se.shelekhovdenis.tasks.model;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * class for working with tasks
+ */
 public class Tasks {
 
+    /**
+     * the function creates a list of tasks that will be performed in a given interval
+     * @param tasks - task list iterator
+     * @param start - interval start time
+     * @param end - interval end time
+     * @return list of tasks
+     */
     public static Iterable<Task> incoming(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end){
         if(start == null || end == null || tasks == null){
             throw new NullPointerException("Arguments is must be not null");
@@ -24,6 +34,13 @@ public class Tasks {
         return list;
     }
 
+    /**
+     * creates a map for a list of tasks in a time range
+     * @param tasks - task list iterator
+     * @param start - interval start time
+     * @param end - interval end time
+     * @return sorted map
+     */
     public static SortedMap<LocalDateTime, Set<Task>> calendar(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end){
         if(start == null || end == null || tasks == null){
             throw new NullPointerException("Arguments is must be not null");

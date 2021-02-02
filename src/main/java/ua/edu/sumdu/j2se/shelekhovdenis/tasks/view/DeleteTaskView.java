@@ -1,44 +1,47 @@
 package ua.edu.sumdu.j2se.shelekhovdenis.tasks.view;
 
-import ua.edu.sumdu.j2se.shelekhovdenis.tasks.controller.CommonController;
 import ua.edu.sumdu.j2se.shelekhovdenis.tasks.model.Task;
 import ua.edu.sumdu.j2se.shelekhovdenis.tasks.model.AbstractTaskList;
 import ua.edu.sumdu.j2se.shelekhovdenis.tasks.model.TaskIO;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
-public class DeleteTaskView implements View{
+/**
+ * outputs using the ShowAllTaskView class
+ * all tasks, removes the selected task from the list
+ */
+public class DeleteTaskView extends Constants implements View{
 
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+    /**
+     * removes a task from the list
+     * @param taskList - abstract task list class
+     * @return "6" - launching the main view
+     */
     @Override
     public int print(AbstractTaskList taskList) {
-        int index = 0;
-        CommonController showAllTaskController = new CommonController(new ShowAllTaskView(), 4);
 
-        for( ; ; ) {
-            boolean check = false;
-            System.out.println("Select the task to be deleted (by index)");
+        check = false;
+        index = 0;
+
+        while(!check){
+            System.out.println(selectMessage);
             showAllTaskController.process(taskList);
             try {
                 index = Integer.parseInt(reader.readLine());
             } catch (NumberFormatException e){
-                System.out.println("Incorrect entry, try again!");
+                System.out.println(incorrectEntryMessage);
                 continue;
             } catch (IOException e) {
-                logger.error("An error occurred while typing(DeleteTaskView)", e);
+                logger.error(textErrorMessage, e);
             }
             for (int i = 1; i <= taskList.size(); i++) {
                 if (index == i)
                     check = true;
             }
             if (!check) {
-                System.out.println("Incorrect entry, try again!");
-            } else {
-                break;
+                System.out.println(incorrectEntryMessage);
             }
         }
         for(Task task : taskList) {

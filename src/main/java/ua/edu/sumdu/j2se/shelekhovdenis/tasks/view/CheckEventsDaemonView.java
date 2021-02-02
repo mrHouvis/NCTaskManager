@@ -7,8 +7,16 @@ import java.io.IOException;
 import java.awt.*;
 import java.time.LocalDateTime;
 
+/**
+ * daemon class for checking the execution of tasks and displaying messages about their completion
+ */
 public class CheckEventsDaemonView implements View {
 
+    /**
+     * method for converting class daemon
+     * @param taskList - abstract task list class
+     * @return "0" - end of program
+     */
     @Override
     public int print(AbstractTaskList taskList) {
         try{
@@ -23,6 +31,10 @@ public class CheckEventsDaemonView implements View {
         return 0;
     }
 
+    /**
+     * checks the completion of tasks every minute
+     * @param taskList - abstract task list class
+     */
     private void doProcessing(AbstractTaskList taskList){
         for( ; ; ) {
             AbstractTaskList activeTaskList;
@@ -37,6 +49,11 @@ public class CheckEventsDaemonView implements View {
             }
         }
     }
+
+    /**
+     * displays a message about the completion of the task
+     * @param task - completed task
+     */
     private void callMessage(Task task){
         if (SystemTray.isSupported()) {
             SystemTray tray = SystemTray.getSystemTray();

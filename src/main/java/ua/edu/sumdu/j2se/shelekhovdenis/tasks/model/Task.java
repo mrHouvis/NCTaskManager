@@ -1,7 +1,5 @@
 package ua.edu.sumdu.j2se.shelekhovdenis.tasks.model;
 
-import org.apache.log4j.Logger;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,6 +7,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+/**
+ * the class describes the instance of the task
+ */
 public class Task implements Cloneable, Serializable {
 
     private String title;
@@ -19,10 +20,18 @@ public class Task implements Cloneable, Serializable {
     private boolean repeated;
     private boolean active = true;
 
+    /**
+     * default constructor
+     */
     public Task() {
         super();
     }
 
+    /**
+     * one-time task constructor
+     * @param title - task name
+     * @param time - task execution time
+     */
     public Task(String title, LocalDateTime time) {
         if (title == null) {
             throw new NullPointerException("The title is null");
@@ -31,6 +40,14 @@ public class Task implements Cloneable, Serializable {
         this.time = time;
     }
 
+    /**
+     * repeatable task constructor
+     * @param title - task name
+     * @param start - task start time
+     * @param end - task end time
+     * @param interval - interval between task executions
+     *
+     */
     public Task(String title, LocalDateTime start, LocalDateTime end, int interval) {
         if (title == null) {
             throw new NullPointerException("The title is null");
@@ -45,10 +62,18 @@ public class Task implements Cloneable, Serializable {
         this.repeated = true;
     }
 
+    /**
+     * function to return the task name
+     * @return - Get task title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * task name change function
+     * @param title - task name
+     */
     public void setTitle(String title) {
         if (title == null) {
             throw new NullPointerException("The title is null");
@@ -56,6 +81,10 @@ public class Task implements Cloneable, Serializable {
         this.title = title;
     }
 
+    /**
+     * function for getting the activity status of a task
+     * @return "true" - if the task is active, "false" - if the task is inactive
+     */
     public boolean isActive() {
         if (active)
             return true;
@@ -63,10 +92,18 @@ public class Task implements Cloneable, Serializable {
             return false;
     }
 
+    /**
+     * task activity change function
+     * @param active - task activity state
+     */
     public void setActive(boolean active) {
         this.active = active;
     }
 
+    /**
+     * function to return the task execution time
+     * @return time - if it`s one-time task, start - if it`s repeatable task
+     */
     public LocalDateTime getTime() {
         if (!repeated)
             return time;
@@ -74,12 +111,20 @@ public class Task implements Cloneable, Serializable {
             return start;
     }
 
+    /**
+     * a function to convert a task to a one-time
+     * @param time - task execution time
+     */
     public void setTime(LocalDateTime time) {
         this.time = time;
         if (repeated)
             repeated = false;
     }
 
+    /**
+     * function to return the task start time
+     * @return start - if it`s repeatable task, time - if it`s one-time task
+     */
     public LocalDateTime getStartTime() {
         if (repeated)
             return start;
@@ -87,6 +132,10 @@ public class Task implements Cloneable, Serializable {
             return time;
     }
 
+    /**
+     * function to return the task end time
+     * @return end - if it`s repeatable task, time - if it`s one-time task
+     */
     public LocalDateTime getEndTime() {
         if (repeated)
             return end;
@@ -94,6 +143,10 @@ public class Task implements Cloneable, Serializable {
             return time;
     }
 
+    /**
+     * function to return the interval between task executions
+     * @return interval - if it`s repeatable task, "0" - if it`s one-time task
+     */
     public int getRepeatInterval() {
         if (repeated)
             return interval;
@@ -101,6 +154,13 @@ public class Task implements Cloneable, Serializable {
             return 0;
     }
 
+    /**
+     *
+     a function to convert a task to a repeatable one
+     * @param start - task start time
+     * @param end - task end time
+     * @param interval - interval between task executions
+     */
     public void setTime(LocalDateTime start, LocalDateTime end, int interval) {
         if (!repeated) {
             if (interval < 0) {
@@ -113,6 +173,10 @@ public class Task implements Cloneable, Serializable {
         }
     }
 
+    /**
+     * function that returns task repeatability
+     * @return "true" - if the task is repeatable, "false" - if the task is one-time
+     */
     public boolean isRepeated() {
         if (repeated)
             return true;
@@ -120,6 +184,10 @@ public class Task implements Cloneable, Serializable {
             return false;
     }
 
+    /**
+     * task hashcode determination function
+     * @return hashcode
+     */
     @Override
     public int hashCode() {
         int hashCode = 5;
@@ -131,6 +199,11 @@ public class Task implements Cloneable, Serializable {
         return hashCode;
     }
 
+    /**
+     * equality check function
+     * @param obj - the task to be compared with the given
+     * @return "true" - if the tasks are equal, "false" - if the tasks are not equal
+     */
     @Override
     public boolean equals(Object obj) {
         if(this == obj){
@@ -160,6 +233,11 @@ public class Task implements Cloneable, Serializable {
         }
     }
 
+    /**
+     * task clone function
+     * @return cloned task
+     * @throws CloneNotSupportedException
+     */
     @Override
     public Task clone() throws CloneNotSupportedException {
         Task cloneTask = new Task();
@@ -176,6 +254,10 @@ public class Task implements Cloneable, Serializable {
         return cloneTask;
     }
 
+    /**
+     * function for displaying information about the task
+     * @return information about the task
+     */
     @Override
     public String toString() {
         if(!isRepeated()){
@@ -191,6 +273,11 @@ public class Task implements Cloneable, Serializable {
         }
     }
 
+    /**
+     * function for determining the next task execution
+     * @param current - time after which the task should occur
+     * @return time - if the task is one-time, next intermediate task execution - if the task is repeated, null - if other options are not suitable
+     */
     public LocalDateTime nextTimeAfter(LocalDateTime current) {
             if (repeated) {
                 LocalDateTime i = start;
@@ -205,6 +292,10 @@ public class Task implements Cloneable, Serializable {
         return null;
     }
 
+    /**
+     * task writing function
+     * @param out - output stream
+     */
     public void writeObject(ObjectOutputStream out) {
         try {
             out.writeInt(getTitle().length());
@@ -222,6 +313,11 @@ public class Task implements Cloneable, Serializable {
         }
     }
 
+    /**
+     * task reading function
+     * @param in - input stream
+     * @return task
+     */
     public Task readObject(ObjectInputStream in) {
         Task task = new Task();
         try {

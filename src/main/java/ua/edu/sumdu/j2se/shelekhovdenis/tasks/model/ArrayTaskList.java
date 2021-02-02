@@ -2,9 +2,15 @@ package ua.edu.sumdu.j2se.shelekhovdenis.tasks.model;
 
 import java.util.Iterator;
 
+/**
+ * an array-based task list
+ */
 public class ArrayTaskList extends AbstractTaskList{
     Task[] taskList = new Task[10];
 
+    /**
+     * class constructor, the type of the list is determined during initialization
+     */
     public ArrayTaskList(){
         this.type = ListTypes.types.ARRAY;
     }
@@ -66,12 +72,20 @@ public class ArrayTaskList extends AbstractTaskList{
         return taskList[index];
     }
 
+    /**
+     * method to traverse the list
+     * @return oneself
+     */
     @Override
     public Iterator<Task> iterator() {
         return new Iterator<Task>() {
 
             private int index = 0;
 
+            /**
+             * checks for the presence of the next list item
+             * @return "true" - if the next element of the list exists
+             */
             @Override
             public boolean hasNext() {
                 if(index < size()) {
@@ -81,11 +95,18 @@ public class ArrayTaskList extends AbstractTaskList{
                 }
             }
 
+            /**
+             * gets the next item in the list
+             * @return task instance
+             */
             @Override
             public Task next() {
                 return ArrayTaskList.this.getTask(index++);
             }
 
+            /**
+             * removes the given list item
+             */
             @Override
             public void remove() {
                 if(index == 0){
