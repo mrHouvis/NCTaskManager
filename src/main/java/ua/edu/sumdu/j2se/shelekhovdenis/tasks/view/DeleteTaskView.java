@@ -11,7 +11,7 @@ import java.io.IOException;
  * outputs using the ShowAllTaskView class
  * all tasks, removes the selected task from the list
  */
-public class DeleteTaskView extends Constants implements View{
+public class DeleteTaskView extends CommonValues implements View, Constants{
 
 
     /**
@@ -46,11 +46,11 @@ public class DeleteTaskView extends Constants implements View{
         }
         for(Task task : taskList) {
             if (taskList.remove(taskList.getTask(index-1))) {
-                System.out.println("Task was deleted");
+                System.out.println(DELETE_TASK_MESSAGE);
                 break;
             }
         }
-        TaskIO.writeText(taskList, new File("TaskList.json"));
+        TaskIO.writeText(taskList, new File(PATHNAME_FILE));
         return 6;
     }
 

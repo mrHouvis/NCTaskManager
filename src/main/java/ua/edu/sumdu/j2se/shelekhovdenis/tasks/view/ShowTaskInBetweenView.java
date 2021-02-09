@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
 /**
  * displays tasks that run in a given interval
  */
-public class ShowTaskInBetweenView extends Constants implements View{
+public class ShowTaskInBetweenView extends CommonValues implements View, Constants{
 
     @Override
     public int print(AbstractTaskList taskList) {
@@ -23,14 +23,14 @@ public class ShowTaskInBetweenView extends Constants implements View{
 
         for( ; ; ) {
             try {
-                System.out.println("Enter the start date of the interval");
+                System.out.println(WRITE_START_DATE_MESSAGE);
                 localDate = LocalDate.parse(reader.readLine());
-                System.out.println("Enter the start time of the interval");
+                System.out.println(WRITE_START_TIME_MESSAGE);
                 localTime = LocalTime.parse(reader.readLine());
                 start = LocalDateTime.of(localDate, localTime);
-                System.out.println("Enter the end date of the interval");
+                System.out.println(WRITE_END_DATE_MESSAGE);
                 localDate = LocalDate.parse(reader.readLine());
-                System.out.println("Enter the end time of the interval");
+                System.out.println(WRITE_END_TIME_MESSAGE);
                 localTime = LocalTime.parse(reader.readLine());
                 end = LocalDateTime.of(localDate, localTime);
                 incomingTaskList = taskList.incoming(start, end);

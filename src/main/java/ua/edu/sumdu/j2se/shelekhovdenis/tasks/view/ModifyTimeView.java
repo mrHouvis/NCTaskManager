@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
 /**
  * allows you to change the number of repetitions and the task execution time
  */
-public class ModifyTimeView extends Constants implements View{
+public class ModifyTimeView extends CommonValues implements View, Constants{
 
     @Override
     public int print(AbstractTaskList taskList) {
@@ -53,14 +53,14 @@ public class ModifyTimeView extends Constants implements View{
             }
             if (!repeated) {
                 try {
-                    System.out.println("Enter a new date");
+                    System.out.println(WRITE_DATE_MESSAGE);
                     localDate = LocalDate.parse(reader.readLine());
-                    System.out.println("Enter a new time");
+                    System.out.println(WRITE_TIME_MESSAGE);
                     localTime = LocalTime.parse(reader.readLine());
                     time = LocalDateTime.of(localDate, localTime);
                     taskList.getTask(index - 1).setTime(time);
-                    TaskIO.writeText(taskList, new File("TaskList.json"));
-                    System.out.println("Time changed");
+                    TaskIO.writeText(taskList, new File(PATHNAME_FILE));
+                    System.out.println(TIME_CHANGED_MESSAGE);
                     return 5;
                 } catch (DateTimeParseException e){
                     System.out.println(INCORRECT_ENTRY_MESSAGE);
@@ -69,21 +69,21 @@ public class ModifyTimeView extends Constants implements View{
                 }
             } else {
                 try {
-                    System.out.println("Enter a new start date");
+                    System.out.println(WRITE_START_DATE_MESSAGE);
                     localDate = LocalDate.parse(reader.readLine());
-                    System.out.println("Enter a new start time");
+                    System.out.println(WRITE_START_TIME_MESSAGE);
                     localTime = LocalTime.parse(reader.readLine());
                     start = LocalDateTime.of(localDate, localTime);
-                    System.out.println("Enter a new end date");
+                    System.out.println(WRITE_END_DATE_MESSAGE);
                     localDate = LocalDate.parse(reader.readLine());
-                    System.out.println("Enter a new end time");
+                    System.out.println(WRITE_END_TIME_MESSAGE);
                     localTime = LocalTime.parse(reader.readLine());
                     end = LocalDateTime.of(localDate, localTime);
-                    System.out.println("Enter a new interval");
+                    System.out.println(WRITE_INTERVAL_MESSAGE);
                     interval = Integer.parseInt(reader.readLine());
                     taskList.getTask(index - 1).setTime(start, end, interval);
-                    TaskIO.writeText(taskList, new File("TaskList.json"));
-                    System.out.println("Time changed");
+                    TaskIO.writeText(taskList, new File(PATHNAME_FILE));
+                    System.out.println(TIME_CHANGED_MESSAGE);
                     return 5;
                 } catch (DateTimeParseException e){
                     System.out.println(INCORRECT_ENTRY_MESSAGE);

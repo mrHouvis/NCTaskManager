@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * outputs options to the console, reads the user's command
  */
-public class MainView extends Constants implements View {
+public class MainView extends CommonValues implements View, Constants{
 
     @Override
     public int print(AbstractTaskList taskList) {
@@ -17,11 +17,11 @@ public class MainView extends Constants implements View {
 
         while(!check) {
             System.out.println(CHOOSE_ACTION_MESSAGE);
-            System.out.println("1.- Create new task;");
-            System.out.println("2.- Modify task;");
-            System.out.println("3.- Delete task;");
-            System.out.println("4.- Search actions;");
-            System.out.println("5.- Exit.");
+            System.out.println(ACTION_CREATE_MESSAGE);
+            System.out.println(ACTION_MODIFY_MESSAGE);
+            System.out.println(ACTION_DELETE_MESSAGE);
+            System.out.println(ACTION_SEARCH_MESSAGE);
+            System.out.println(ACTION_EXIT_MESSAGE);
             try {
                 index = Integer.parseInt(reader.readLine());
             } catch (NumberFormatException e){

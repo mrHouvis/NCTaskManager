@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
 /**
  * creates a task and adds it to the list
  */
-public class CreateNewTaskView extends Constants implements View{
+public class CreateNewTaskView extends CommonValues implements View, Constants{
 
     /**
      * adds the created task to the list
@@ -24,7 +24,7 @@ public class CreateNewTaskView extends Constants implements View{
     public int print(AbstractTaskList taskList) {
         try {
             taskList.add(createNewTask());
-            TaskIO.writeText(taskList, new File("TaskList.json"));
+            TaskIO.writeText(taskList, new File(PATHNAME_FILE));
         } catch (IOException e){
             logger.error(TEXT_ERROR_MESSAGE, e);
         }
@@ -49,12 +49,12 @@ public class CreateNewTaskView extends Constants implements View{
             }
             repeated = Boolean.parseBoolean(checked);
             if (!repeated) {
-                System.out.println("Write title");
+                System.out.println(WRITE_TITLE_MESSAGE);
                 title = reader.readLine();
                 try {
-                    System.out.println("Write date(format yyyy-mm-dd)");
+                    System.out.println(WRITE_DATE_MESSAGE);
                     localDate = LocalDate.parse(reader.readLine());
-                    System.out.println("Write time(format hh:mm:ss or hh:mm)");
+                    System.out.println(WRITE_TIME_MESSAGE);
                     localTime = LocalTime.parse(reader.readLine());
                     time = LocalDateTime.of(localDate, localTime);
                     task = new Task(title, time);
@@ -64,20 +64,20 @@ public class CreateNewTaskView extends Constants implements View{
                     System.out.println(INCORRECT_ENTRY_MESSAGE);
                 }
             } else {
-                System.out.println("Write title");
+                System.out.println(WRITE_TITLE_MESSAGE);
                 title = reader.readLine();
                 try {
-                    System.out.println("Write start date(format yyyy-mm-dd)");
+                    System.out.println(WRITE_START_DATE_MESSAGE);
                     localDate = LocalDate.parse(reader.readLine());
-                    System.out.println("Write start time(format hh:mm:ss or hh:mm)");
+                    System.out.println(WRITE_START_TIME_MESSAGE);
                     localTime = LocalTime.parse(reader.readLine());
                     start = LocalDateTime.of(localDate, localTime);
-                    System.out.println("Write end date(format yyyy-mm-dd)");
+                    System.out.println(WRITE_END_DATE_MESSAGE);
                     localDate = LocalDate.parse(reader.readLine());
-                    System.out.println("Write end time(format hh:mm:ss or hh:mm)");
+                    System.out.println(WRITE_END_TIME_MESSAGE);
                     localTime = LocalTime.parse(reader.readLine());
                     end = LocalDateTime.of(localDate, localTime);
-                    System.out.println("Write repetition interval(in seconds)");
+                    System.out.println(WRITE_INTERVAL_MESSAGE);
                     interval = Integer.parseInt(reader.readLine());
                     task = new Task(title, start, end, interval);
                     System.out.println(task.toString());

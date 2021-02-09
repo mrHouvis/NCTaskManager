@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * outputs options to the console, reads the user's command
  */
-public class SearchActionsView extends Constants implements View{
+public class SearchActionsView extends CommonValues implements View, Constants{
 
     @Override
     public int print(AbstractTaskList taskList) {
@@ -17,10 +17,10 @@ public class SearchActionsView extends Constants implements View{
 
         while(!check) {
             System.out.println(CHOOSE_ACTION_MESSAGE);
-            System.out.println("1.- Show all tasks;");
-            System.out.println("2.- Show active tasks;");
-            System.out.println("3.- Show tasks in between;");
-            System.out.println("4.- Return;");
+            System.out.println(ACTION_SHOW_ALL_MESSAGE);
+            System.out.println(ACTION_SHOW_ACTIVE_MESSAGE);
+            System.out.println(ACTION_SHOW_BETWEEN_MESSAGE);
+            System.out.println(ACTION_RETURN_MESSAGE);
             try {
                 index = Integer.parseInt(reader.readLine());
             } catch (NumberFormatException e){

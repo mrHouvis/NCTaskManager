@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * allows you to change the name of the task
  */
-public class ModifyTitleView extends Constants implements View{
+public class ModifyTitleView extends CommonValues implements View, Constants{
 
     @Override
     public int print(AbstractTaskList taskList) {
@@ -36,15 +36,15 @@ public class ModifyTitleView extends Constants implements View{
                 System.out.println(INCORRECT_ENTRY_MESSAGE);
                 continue;
             }
-            System.out.println("Enter a new title");
+            System.out.println(WRITE_TITLE_MESSAGE);
             try {
                 title = reader.readLine();
             } catch (IOException e) {
                 logger.error(TEXT_ERROR_MESSAGE, e);
             }
             taskList.getTask(index - 1).setTitle(title);
-            TaskIO.writeText(taskList, new File("TaskList.json"));
-            System.out.println("Title changed");
+            TaskIO.writeText(taskList, new File(PATHNAME_FILE));
+            System.out.println(TITLE_CHANGED_MESSAGE);
             return 5;
         }
     }

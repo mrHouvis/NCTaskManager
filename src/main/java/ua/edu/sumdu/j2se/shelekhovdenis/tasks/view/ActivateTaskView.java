@@ -10,7 +10,7 @@ import java.io.IOException;
  * outputs using the ShowAllTaskView class
  * all tasks, that changes the activity state of the task selected by the user
  */
-public class ActivateTaskView extends Constants implements View{
+public class ActivateTaskView extends CommonValues implements View, Constants{
 
     /**
      * changes the activity state of the task
@@ -43,11 +43,11 @@ public class ActivateTaskView extends Constants implements View{
             }
         }
         taskList.getTask(index-1).setActive(!taskList.getTask(index-1).isActive());
-        TaskIO.writeText(taskList, new File("TaskList.json"));
+        TaskIO.writeText(taskList, new File(PATHNAME_FILE));
         if(taskList.getTask(index-1).isActive())
-            System.out.println("Task is activated");
+            System.out.println(ACTIVATE_TASK_MESSAGE);
         else
-            System.out.println("Task is deactivated");
+            System.out.println(DEACTIVATE_TASK_MESSAGE);
         return 5;
     }
 
