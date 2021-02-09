@@ -16,7 +16,7 @@ public class SearchActionsView extends Constants implements View{
         check = false;
 
         while(!check) {
-            System.out.println(chooseActionMessage);
+            System.out.println(CHOOSE_ACTION_MESSAGE);
             System.out.println("1.- Show all tasks;");
             System.out.println("2.- Show active tasks;");
             System.out.println("3.- Show tasks in between;");
@@ -24,10 +24,10 @@ public class SearchActionsView extends Constants implements View{
             try {
                 index = Integer.parseInt(reader.readLine());
             } catch (NumberFormatException e){
-                System.out.println(incorrectEntryMessage);
+                System.out.println(INCORRECT_ENTRY_MESSAGE);
                 continue;
             } catch (IOException e) {
-                logger.error(textErrorMessage, e);
+                logger.error(TEXT_ERROR_MESSAGE, e);
             }
             for (int i = 1; i < 5; i++) {
                 if (index == i) {
@@ -36,7 +36,7 @@ public class SearchActionsView extends Constants implements View{
                 }
             }
             if (!check) {
-                System.out.println(incorrectEntryMessage);
+                System.out.println(INCORRECT_ENTRY_MESSAGE);
             }
         }
         return index;

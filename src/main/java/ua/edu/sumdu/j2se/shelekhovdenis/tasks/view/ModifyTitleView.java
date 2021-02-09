@@ -19,28 +19,28 @@ public class ModifyTitleView extends Constants implements View{
         showAllTaskController.process(taskList);
 
         for( ; ; ){
-            System.out.println(selectMessage);
+            System.out.println(SELECT_MESSAGE);
             try {
                 index = Integer.parseInt(reader.readLine());
             } catch (NumberFormatException e) {
-                System.out.println(incorrectEntryMessage);
+                System.out.println(INCORRECT_ENTRY_MESSAGE);
                 continue;
             } catch (IOException e) {
-                logger.error(textErrorMessage, e);
+                logger.error(TEXT_ERROR_MESSAGE, e);
             }
             for (int i = 1; i <= taskList.size(); i++) {
                 if (index == i)
                     check = true;
             }
             if (!check) {
-                System.out.println(incorrectEntryMessage);
+                System.out.println(INCORRECT_ENTRY_MESSAGE);
                 continue;
             }
             System.out.println("Enter a new title");
             try {
                 title = reader.readLine();
             } catch (IOException e) {
-                logger.error(textErrorMessage, e);
+                logger.error(TEXT_ERROR_MESSAGE, e);
             }
             taskList.getTask(index - 1).setTitle(title);
             TaskIO.writeText(taskList, new File("TaskList.json"));

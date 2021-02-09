@@ -16,7 +16,7 @@ public class MainView extends Constants implements View {
         check = false;
 
         while(!check) {
-            System.out.println(chooseActionMessage);
+            System.out.println(CHOOSE_ACTION_MESSAGE);
             System.out.println("1.- Create new task;");
             System.out.println("2.- Modify task;");
             System.out.println("3.- Delete task;");
@@ -25,17 +25,17 @@ public class MainView extends Constants implements View {
             try {
                 index = Integer.parseInt(reader.readLine());
             } catch (NumberFormatException e){
-                System.out.println(incorrectEntryMessage);
+                System.out.println(INCORRECT_ENTRY_MESSAGE);
                 continue;
             } catch (IOException e) {
-                logger.error(textErrorMessage, e);
+                logger.error(TEXT_ERROR_MESSAGE, e);
             }
             for (int i = 1; i < 6; i++) {
                 if (index == i)
                     check = true;
             }
             if (!check) {
-                System.out.println(incorrectEntryMessage);
+                System.out.println(INCORRECT_ENTRY_MESSAGE);
             }
         }
         return index;

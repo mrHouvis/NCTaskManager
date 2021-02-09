@@ -26,7 +26,7 @@ public class CreateNewTaskView extends Constants implements View{
             taskList.add(createNewTask());
             TaskIO.writeText(taskList, new File("TaskList.json"));
         } catch (IOException e){
-            logger.error(textErrorMessage, e);
+            logger.error(TEXT_ERROR_MESSAGE, e);
         }
         return 6;
     }
@@ -41,10 +41,10 @@ public class CreateNewTaskView extends Constants implements View{
 
         for( ; ; ) {
             String checked;
-            System.out.println(repeatedMessage);
+            System.out.println(REPEATED_MESSAGE);
             checked = reader.readLine();
             if(!checktrue.equalsIgnoreCase(checked) && !checkfalse.equalsIgnoreCase(checked)) {
-                System.out.println(incorrectEntryMessage);
+                System.out.println(INCORRECT_ENTRY_MESSAGE);
                 continue;
             }
             repeated = Boolean.parseBoolean(checked);
@@ -61,7 +61,7 @@ public class CreateNewTaskView extends Constants implements View{
                     System.out.println(task.toString());
                     return task;
                 } catch (DateTimeParseException e) {
-                    System.out.println(incorrectEntryMessage);
+                    System.out.println(INCORRECT_ENTRY_MESSAGE);
                 }
             } else {
                 System.out.println("Write title");
@@ -83,7 +83,7 @@ public class CreateNewTaskView extends Constants implements View{
                     System.out.println(task.toString());
                     return task;
                 } catch (DateTimeParseException e) {
-                    System.out.println(incorrectEntryMessage);
+                    System.out.println(INCORRECT_ENTRY_MESSAGE);
                 }
             }
         }

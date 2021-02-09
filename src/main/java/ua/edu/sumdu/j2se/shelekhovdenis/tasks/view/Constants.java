@@ -29,9 +29,9 @@ public class Constants {
     LocalDateTime end;
     int interval;
 
-    String selectMessage = "Select the task (by index)";
-    String repeatedMessage = "Its a repeated task?(true/false)";
-    String incorrectEntryMessage = "Incorrect entry, try again!";
-    String textErrorMessage = "An error occurred while typing";
-    String chooseActionMessage = "Choose an action number from the options below.";
+    public static final String SELECT_MESSAGE = "Select the task (by index)";
+    public static final String REPEATED_MESSAGE = "Its a repeated task?(true/false)";
+    public static final String INCORRECT_ENTRY_MESSAGE = "Incorrect entry, try again!";
+    public static final String TEXT_ERROR_MESSAGE = "An error occurred while typing";
+    public static final String CHOOSE_ACTION_MESSAGE = "Choose an action number from the options below.";
 }

@@ -35,10 +35,10 @@ public class ShowTaskInBetweenView extends Constants implements View{
                 end = LocalDateTime.of(localDate, localTime);
                 incomingTaskList = taskList.incoming(start, end);
             } catch (DateTimeParseException e) {
-                System.out.println(incorrectEntryMessage);
+                System.out.println(INCORRECT_ENTRY_MESSAGE);
                 continue;
             } catch (IOException e) {
-                logger.error(textErrorMessage, e);
+                logger.error(TEXT_ERROR_MESSAGE, e);
             }
             for (Task task : incomingTaskList) {
                 System.out.println(index + ": " + task.toString());
