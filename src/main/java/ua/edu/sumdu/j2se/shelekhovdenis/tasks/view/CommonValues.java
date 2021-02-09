@@ -13,18 +13,18 @@ import java.time.LocalTime;
  */
 public class CommonValues {
 
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    CommonController showAllTaskController = new CommonController(new ShowAllTaskView(), 4);
-    int index = 0;
-    boolean check = false;
+    protected BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    protected CommonController showAllTaskController = new CommonController(new ShowAllTaskView(), 4);
+    protected int index = 0;
+    protected boolean check = false;
 
-    boolean repeated;
-    String title;
-    LocalDate localDate;
-    LocalTime localTime;
-    LocalDateTime time;
-    LocalDateTime start;
-    LocalDateTime end;
-    int interval;
+    protected boolean repeated;
+    protected String title;
+    protected LocalDate localDate;
+    protected LocalTime localTime;
+    protected LocalDateTime time;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
+    protected int interval;
 
 }
