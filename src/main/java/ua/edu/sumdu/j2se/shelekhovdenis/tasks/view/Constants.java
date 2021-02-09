@@ -2,8 +2,8 @@ package ua.edu.sumdu.j2se.shelekhovdenis.tasks.view;
 
 public interface Constants {
 
-    String checktrue = "true";
-    String checkfalse = "false";
+    String CHECK_TRUE = "true";
+    String CHECK_FALSE = "false";
     String PATHNAME_FILE = "TaskList.json";
     String SELECT_MESSAGE = "Select the task (by index)";
     String REPEATED_MESSAGE = "Its a repeated task?(true/false)";

@@ -43,7 +43,7 @@ public class CreateNewTaskView extends CommonValues implements View, Constants{
             String checked;
             System.out.println(REPEATED_MESSAGE);
             checked = reader.readLine();
-            if(!checktrue.equalsIgnoreCase(checked) && !checkfalse.equalsIgnoreCase(checked)) {
+            if(!CHECK_TRUE.equalsIgnoreCase(checked) && !CHECK_FALSE.equalsIgnoreCase(checked)) {
                 System.out.println(INCORRECT_ENTRY_MESSAGE);
                 continue;
             }
