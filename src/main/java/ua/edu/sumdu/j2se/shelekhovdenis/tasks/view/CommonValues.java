@@ -17,8 +17,6 @@ public class CommonValues {
     CommonController showAllTaskController = new CommonController(new ShowAllTaskView(), 4);
     int index = 0;
     boolean check = false;
-    String checktrue = "true";
-    String checkfalse = "false";
 
     boolean repeated;
     String title;
