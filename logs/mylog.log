@@ -1,0 +1,8 @@
+2021-01-22 14:47:15 ERROR TaskIO:102 - Tasks were not read(Text)
+java.io.FileNotFoundException: TaskList.json (Не удается найти указанный файл)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:211)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:153)
+	at java.base/java.io.FileReader.<init>(FileReader.java:75)
+	at ua.edu.sumdu.j2se.shelekhovdenis.tasks.model.TaskIO.readText(TaskIO.java:99)
+	at ua.edu.sumdu.j2se.shelekhovdenis.tasks.Main.main(Main.java:15)

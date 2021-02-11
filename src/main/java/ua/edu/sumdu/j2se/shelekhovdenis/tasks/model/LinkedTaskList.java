@@ -1,12 +1,19 @@
-package ua.edu.sumdu.j2se.shelekhovDenis.tasks;
+package ua.edu.sumdu.j2se.shelekhovdenis.tasks.model;
 
 import java.util.Iterator;
 
+
+/**
+ * an linked-based task list
+ */
 public class LinkedTaskList extends AbstractTaskList{
     private Node first;
     private Node last;
     private int size;
 
+    /**
+     * class constructor, the type of the list is determined during initialization
+     */
     public LinkedTaskList(){
         first = null;
         last = null;
@@ -96,10 +103,18 @@ public class LinkedTaskList extends AbstractTaskList{
         };
     }
 
+    /**
+     * inner class containing list item and reference to next
+     */
     private class Node {
         private Task data;
         private Node next;
 
+        /**
+         * inner class constructor
+         * @param data - list instance
+         * @param next - reference to next list instance
+         */
         public Node(Task data, Node next) {
             this.data = data;
             this.next = next;
